@@ -1,0 +1,32 @@
+
+
+
+Class 										Abstract 						Interface 
+1)
+class A										abstract class A				interface I
+{											{								{
+
+}											}								}
+
+2)
+int a;// o // const 						yes 							no , y? no const
+3)
+A(){}										yes 							we cant create const 
+4)
+obj : yes 									no 								no 
+
+5)
+onlu norml method 
+	non abstract ,ethod 					both abstract and non 			only abstract 
+6)
+0% security 								0-100%								100%
+7)
+
+Muiltiple inhe: no 						no 								yes
+
+
+
+<50 : reliving letter from company 
+
+
+

@@ -1,0 +1,13 @@
+Tomcat : 9 
+	
+		https://tomcat.apache.org/download-90.cgi
+
+Servlet Jar file : 
+
+		https://jar-download.com/?search_box=tomcat-servlet-api
+
+
+ms sql jar file 
+
+
+	https://learn.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver16

@@ -1,0 +1,41 @@
+user name password :
+we also have tpo creter user name and pass 
+Gmail , anmd itys apssword 
+
+
+
+Git HUB account : 
+		to store our code 
+
+
+
+
+to puch code 
+
+	git init 			svn init 
+	git add . 			svn add .
+	git commit 		svn commit 
+	git push 			svn push 
+	git pull 			svn pull 
+	git clone 			svn clone 
+	git checkout 		svn checkout 
+	
+
+
+ThaneshTCSB2 : User name 
+ThaneshTCS1234
+
+thaneshkumartcsb2@gmail.com
+
+
+Repo : TCSB2
+
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/ThaneshTCSB2/TCSB2.git
+git push -u origin main
+
+

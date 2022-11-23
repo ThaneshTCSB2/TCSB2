@@ -1,0 +1,1703 @@
+
+
+
+
+	(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> create database testdb
+2> GO
+Msg 1801, Level 16, State 3, Server ip-172-31-13-125, Line 1
+Database 'testdb' already exists. Choose a different database name.
+1> create database mydb
+2> GO
+1> SELECT name, database_id, create_date  FROM sys.databases;
+2> GO
+name                                                                                                                             database_id create_date            
+-------------------------------------------------------------------------------------------------------------------------------- ----------- -----------------------
+master                                                                                                                                     1 2003-04-08 09:13:36.390
+tempdb                                                                                                                                     2 2022-11-10 16:16:49.537
+model                                                                                                                                      3 2003-04-08 09:13:36.390
+msdb                                                                                                                                       4 2022-09-13 14:03:02.303
+TestDB                                                                                                                                     5 2022-10-29 06:05:43.717
+TestDB1                                                                                                                                    6 2022-11-10 06:36:39.137
+mydb                                                                                                                                       7 2022-11-10 16:19:55.013
+
+(7 rows affected)
+1> use mydb
+2> GO
+Changed database context to 'mydb'.
+1> create table employee (id int, name varchar)
+2> GO
+1> insert into employee(1, 'abc')
+2> GO
+Msg 102, Level 15, State 1, Server ip-172-31-13-125, Line 1
+Incorrect syntax near ')'.
+1> insert into employee values (1, 'abc')
+2> GO
+Msg 2628, Level 16, State 1, Server ip-172-31-13-125, Line 1
+String or binary data would be truncated in table 'mydb.dbo.employee', column 'name'. Truncated value: 'a'.
+The statement has been terminated.
+1> insert into employee values (1, "abc")
+2> GO
+Msg 2628, Level 16, State 1, Server ip-172-31-13-125, Line 1
+String or binary data would be truncated in table 'mydb.dbo.employee', column 'name'. Truncated value: 'a'.
+The statement has been terminated.
+1> create table employee2 (id int, name varchar(10))
+2> GO
+1> insert into employee2 values (1, "abc)
+2~ GO
+3~ 
+4~ GO
+5~ insert into employee2 values (2, "def")
+6~ GO
+7~ 
+8~ 
+
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> select * from employee
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employee'.
+1> select * from employees
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employees'.
+1> use mydb
+2> GO
+Changed database context to 'mydb'.
+1> select * from employees
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employees'.
+1> select * from employee
+2> GO
+id          name
+----------- ----
+
+(0 rows affected)
+1> select * from employee2
+2> GO
+id          name      
+----------- ----------
+
+(0 rows affected)
+1> insert into employee2 values (1, 'abc')
+2> GO
+
+(1 rows affected)
+1> insert into employee2 values (2, 'def')
+2> GO
+
+(1 rows affected)
+1> select * from eployee2
+2> 
+
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> select * from employee2
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employee2'.
+1> use mydb
+2> select * from employee2
+3> GO
+Changed database context to 'mydb'.
+id          name      
+----------- ----------
+          1 abc       
+          2 def       
+
+(2 rows affected)
+1> 2
+
+
+
+
+
+
+
+
+https://learn.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver16
+
+
+
+
+
+import java.sql.*;
+
+public class DatabaseConnection {
+
+	public static void main(String[] args) throws Exception {
+		
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		
+
+      String  connectionUrl = "jdbc:sqlserver://localhost:1433;"
+        		+ "databaseName=mydb;user=sa;password=Root123$"
+        		+ ";encrypt=true;trustServerCertificate=true;";
+
+
+        ResultSet resultSet = null;
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+                Statement statement = connection.createStatement();) {
+
+            // Create and execute a SELECT SQL statement.
+            String selectSql = "SELECT TOP 10 Id, Name from Employee2";
+            resultSet = statement.executeQuery(selectSql);
+
+            // Print results from select statement
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+create table employee(ID int , Name varvhar(10),Age int, Salary int , Desig varchar(10));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Web : 
+
+
+full stack 
+	
+	
+	front 
+					Html,css,js 
+
+
+
+
+		server : 			tomcat 
+							8/9/10
+
+
+	middleware 
+					java 
+
+							JDBC 
+
+	back end 
+					sql
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1000 
+I have to the modification 
+
+com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+
+Mysql
+Oracle 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JSP 
+
+	JDBC 
+	Servlet 
+
+		JSP 
+
+
+
+
+
+
+
+
+Servlet :server side codding lang whuch is used to creater a web app
+		
+		HttpServletRequest request
+		HttpServletResponce respoce 
+		PrintWriter out
+		HttpSession session 
+		ServletContext context 
+
+
+
+		request.
+		resosnce 
+		out
+		session 
+		conext
+
+
+
+
+JSP     : server side coding lang which is used to creater a web app 
+
+
+		is looks like HTML only ...!
+
+
+		HTML -----------------------   JSP ? 
+
+		input tag 
+		a
+		b
+
+		c =a + b ;
+	
+		No 						Yes we can write logic 
+
+
+		tags 						tags + advance tags (to write java code )
+
+
+
+
+
+		JDBC
+		Servlet 
+			tomcat 
+			add jar 
+
+			
+
+
+		JSP 
+
+
+
+				Servlet =====JSP 
+		jar 
+
+		jsp jar 
+		servlet jar 
+		jdbc jar 
+
+
+
+		Servlet :
+		jSP :
+
+
+
+
+
+
+
+
+JSP :
+
+	3 types of tags 
+		
+
+		Declaration tag : it is used to deaclate val				: <% !     %>
+		Scriplate tag   : it is used to write java code : logical 		: <%       %>
+		Expression Tag  : it is used to print the out put				: <%=       %> 
+
+
+		 
+
+
+
+		int a=100;
+		int b=200;
+		int c = a+b;
+
+		print(c);
+
+
+
+
+		<%!   
+
+			int a=100;
+			int b=200;
+			int c;
+		%>
+		<%
+			 c = a+b;
+		%>
+
+		<%=c
+
+		%>
+
+
+
+
+
+
+
+
+
+1	:Introduction to Java						: DONE
+2	:Data Handling and Functions				: DONE
+3	:Object Oriented Programming in Java			: DONE
+4	:Packages and Multi Threading				: DONE
+5	:Collections							: DONE
+6	:JDBC									: DONE
+7	:Servlets								: DONE
+8	:JSP 									: DONE
+9	:Hibernate								: NOT DONE
+10	:Serialization							: NOT DONE
+11	:JSON									: NOT DEMO
+12	:Java memory model						: DONE
+13	:Java 8 and Java 9 features					: DONE (deafults and staticss ) , multiple try catch block 
+14	:XML									: DONE
+15	:SOA									: NOT DONE
+16	:Web Services and Project					: DONE
+17	:Introduction to Struts Framework			:
+18	:Struts 1.2 MVC and Stateless Session Beans		:
+19	:SVN									:
+20	:Maven								:
+21	:Getting Started with MySQL and Installing MySQL	: DONE
+22	:Designing Your Database & Understand Data Types : DONE
+23	:Creating Databases and Tables				: DONE
+24	:Eclips								: DONE 
+25	:Querying and Modifying Table Data			: DONE
+26	:Joining Tables and Functions				: DONE
+27	:MySQL Architecture and Administration Basics	:
+28	:Configuring & Monitoring MySQL Server			:
+29	:User Management							: DEMO 
+30	:Security								: Demo
+31 	:Backup Tools & Technique					:
+
+					JSP 
+
+5  typess of SQL 
+
+DDL : Data defination lang 
+		
+	Drop rename  Create alter truncate 
+	
+ 	rename table emp2 to emp1 ;
+
+	truncate table emp1;	
+	alter table emp1 add (PAN varchar(10));
+	alter table emp1 drop pan;
+	alter table emp1 modify place varchar(15);
+	alter table emp1 rename id to emp_id
+
+DML : Data Manupualtion lang
+		update 
+		insert 
+		delete 
+ 
+DRL : Data retrival lang 
+		select 
+
+
+TCL  : tranzection  contorl lang 
+		commit
+		rollback 
+
+DCL  : Data control lang 
+		grant 
+		revoke 
+
+COnstrient ? 
+	permiry key  : no dup + not be empty (not null )
+	not null 
+	check 
+
+	quniquu 
+	default 
+
+
+
+char 
+varchar 
+int 
+date 
+boolean 
+
+
+	
+joins ?
+	inner join 	
+	outer join 
+		full join 
+		left join 
+		right join 
+Data base secured 
+User ? 
+	grante 
+	revoke 
+view 
+sequences
+
+
+create table bank (ID int, name varchar(10),Acc int , Ph int, PAN varchar(10), bal int);
+
+
+
+
+
+create table bank(ID int primary key ,name varchar(10) not null ,Acc int unique,bal int check(bal> 500),acctype varchar(10) default 'Savings');
+
+
+insert into bank values(111,'Thanesh',112233,1000,'Saving');
+insert into bank values(112,'Thanesh',112234,1000,'Saving');
+
+
+PK : no dup + not null    + one pk in a atable 
+Uniquee: no dup  + can be null + uniquee can be many 
+
+Not null : we much have to pass some v alues 
+check :
+
+
+
+
+
+
+
+
+
+1	:Introduction to Java						: DONE
+2	:Data Handling and Functions				: DONE
+3	:Object Oriented Programming in Java			: DONE
+4	:Packages and Multi Threading				: DONE
+5	:Collections							: DONE
+6	:JDBC									: DONE
+7	:Servlets								: DONE
+8	:JSP 									: DONE
+9	:Hibernate								: NOT DONE
+10	:Serialization							: NOT DONE
+11	:JSON									: NOT DEMO
+12	:Java memory model						: DONE
+13	:Java 8 and Java 9 features					: DONE (deafults and staticss ) , multiple try catch block 
+14	:XML									: DONE
+15	:SOA									: NOT DONE
+16	:Web Services and Project					: DONE
+17	:Introduction to Struts Framework			:
+18	:Struts 1.2 MVC and Stateless Session Beans		:
+19	:SVN									:
+20	:Maven								:
+21	:Getting Started with MySQL and Installing MySQL	: DONE
+22	:Designing Your Database & Understand Data Types : DONE
+23	:Creating Databases and Tables				: DONE
+24	:Eclips								: DONE 
+25	:Querying and Modifying Table Data			: DONE
+26	:Joining Tables and Functions				: DONE
+27	:MySQL Architecture and Administration Basics	:
+28	:Configuring & Monitoring MySQL Server			: DONE
+29	:User Management							: DEMO 
+30	:Security								: Demo
+31 	:Backup Tools & Technique					: RMAN (recovery manager)
+
+
+
+
+
+
+
+basics about DB
+	
+Data types ;
+	int 
+	varchar 
+	char 
+	date 
+	boolen 
+	
+Constrient 
+		Primary key 
+		unique
+		not null 
+		check 
+		defult 
+	
+
+5 types of Cmds 
+
+	DDL
+			Data Defination lang 
+				drop , rename , create alter truncate   
+
+	DML
+			Data manupulation lang 
+				Update insert delete 
+ 
+	DRL
+			Data Retrivel lang 
+				
+				Select  
+	DCL :
+			Data Control lang 
+				Grant 
+				Revoke 
+	TCL
+			Transction control lang 
+				commit 
+				rollback 
+
+
+
+ 
+
+Joins
+
+	inner join 
+	outer join 
+		full join 
+		right 
+		left 
+
+
+
+
+views ?
+
+
+Functions ?	
+	upper 
+	lower 
+	flore 
+	ciel 
+
+	max 
+	min 
+	avg
+	sum 
+	count 
+	
+like 
+order by 
+distict 
+and 
+not 
+or
+between 
+	
+
+sub quesries : 
+
+5
+	Employee 
+		emp_id 
+		first)name 
+		last_name 
+		desig 
+		salary 
+		dob 
+		doj 
+		emil
+		pan 
+		ph 
+		address
+		aaadr
+
+
+	departnment
+
+			dept_id , 
+			dept _name 
+			dept _loct 
+			
+	location 
+			city , state, pin , 
+	countries 
+			cid , c name , region
+	regions;
+			region od 
+			rengio name 
+		
+
+
+
+
+	59 records 
+
+
+
+
+
+
+
+	(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> create database testdb
+2> GO
+Msg 1801, Level 16, State 3, Server ip-172-31-13-125, Line 1
+Database 'testdb' already exists. Choose a different database name.
+1> create database mydb
+2> GO
+1> SELECT name, database_id, create_date  FROM sys.databases;
+2> GO
+name                                                                                                                             database_id create_date            
+-------------------------------------------------------------------------------------------------------------------------------- ----------- -----------------------
+master                                                                                                                                     1 2003-04-08 09:13:36.390
+tempdb                                                                                                                                     2 2022-11-10 16:16:49.537
+model                                                                                                                                      3 2003-04-08 09:13:36.390
+msdb                                                                                                                                       4 2022-09-13 14:03:02.303
+TestDB                                                                                                                                     5 2022-10-29 06:05:43.717
+TestDB1                                                                                                                                    6 2022-11-10 06:36:39.137
+mydb                                                                                                                                       7 2022-11-10 16:19:55.013
+
+(7 rows affected)
+1> use mydb
+2> GO
+Changed database context to 'mydb'.
+1> create table employee (id int, name varchar)
+2> GO
+1> insert into employee(1, 'abc')
+2> GO
+Msg 102, Level 15, State 1, Server ip-172-31-13-125, Line 1
+Incorrect syntax near ')'.
+1> insert into employee values (1, 'abc')
+2> GO
+Msg 2628, Level 16, State 1, Server ip-172-31-13-125, Line 1
+String or binary data would be truncated in table 'mydb.dbo.employee', column 'name'. Truncated value: 'a'.
+The statement has been terminated.
+1> insert into employee values (1, "abc")
+2> GO
+Msg 2628, Level 16, State 1, Server ip-172-31-13-125, Line 1
+String or binary data would be truncated in table 'mydb.dbo.employee', column 'name'. Truncated value: 'a'.
+The statement has been terminated.
+1> create table employee2 (id int, name varchar(10))
+2> GO
+1> insert into employee2 values (1, "abc)
+2~ GO
+3~ 
+4~ GO
+5~ insert into employee2 values (2, "def")
+6~ GO
+7~ 
+8~ 
+
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> select * from employee
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employee'.
+1> select * from employees
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employees'.
+1> use mydb
+2> GO
+Changed database context to 'mydb'.
+1> select * from employees
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employees'.
+1> select * from employee
+2> GO
+id          name
+----------- ----
+
+(0 rows affected)
+1> select * from employee2
+2> GO
+id          name      
+----------- ----------
+
+(0 rows affected)
+1> insert into employee2 values (1, 'abc')
+2> GO
+
+(1 rows affected)
+1> insert into employee2 values (2, 'def')
+2> GO
+
+(1 rows affected)
+1> select * from eployee2
+2> 
+
+Sqlcmd: Warning: The last operation was terminated because the user pressed CTRL+C.
+(base) labuser@ip-172-31-12-10:~$ sqlcmd -S localhost -U sa -P Root123$
+1> select * from employee2
+2> GO
+Msg 208, Level 16, State 1, Server ip-172-31-13-125, Line 1
+Invalid object name 'employee2'.
+1> use mydb
+2> select * from employee2
+3> GO
+Changed database context to 'mydb'.
+id          name      
+----------- ----------
+          1 abc       
+          2 def       
+
+
+
+rows affected)
+1> select * from emp1;
+2> go
+id          Name       Age        
+----------- ---------- -----------
+         10 Abi                 25
+         20 Bharath             23
+         30 Charan              43
+         40 Darshan             45
+
+(4 rows affected)
+1> select * from emp2;
+2> go
+id          place      pin        
+----------- ---------- -----------
+         10 AP              342355
+         20 AP                3255
+         50 UP                8765
+         60 MP                9342
+
+
+
+
+(2 rows affected)
+1> 2
+
+         20 AP                3255
+
+(2 rows affected)
+1> insert into emp2 values(50,'UP',8765);
+2> go
+
+(1 rows affected)
+1> insert into emp2 values(60,'MP',9342);
+2> go
+
+(1 rows affected)
+1> select * from emp1;
+2> go 
+id          Name       Age        
+----------- ---------- -----------
+         10 Abi                 25
+         20 Bharath             23
+         30 Charan              43
+         40 Darshan             45
+
+(4 rows affected)
+1> select * from emp2;
+2> go
+id          place      pin        
+----------- ---------- -----------
+          1 AP              342355
+         20 AP                3255
+         50 UP                8765
+         60 MP                9342
+
+(4 rows affected)
+1> update emp2 set id=10 where id=1;
+2> go
+
+
+
+         20 AP                3255
+
+(2 rows affected)
+1> insert into emp2 values(50,'UP',8765);
+2> go
+
+(1 rows affected)
+1> insert into emp2 values(60,'MP',9342);
+2> go
+
+(1 rows affected)
+1> select * from emp1;
+2> go 
+id          Name       Age        
+----------- ---------- -----------
+         10 Abi                 25
+         20 Bharath             23
+         30 Charan              43
+         40 Darshan             45
+
+(4 rows affected)
+1> select * from emp2;
+2> go
+id          place      pin        
+----------- ---------- -----------
+          1 AP              342355
+         20 AP                3255
+         50 UP                8765
+         60 MP                9342
+
+(4 rows affected)
+1> update emp2 set id=10 where id=1;
+2> go
+
+
+
+
+
+(1 rows affected)
+1> select * from emp1;
+2> go
+id          Name       Age        
+----------- ---------- -----------
+         10 Abi                 25
+         20 Bharath             23
+         30 Charan              43
+         40 Darshan             45
+
+(4 rows affected)
+1> select * from emp2;
+2> go
+id          place      pin        
+----------- ---------- -----------
+         10 AP              342355
+         20 AP                3255
+         50 UP                8765
+         60 MP                9342
+
+(4 rows affected)
+1> select * from emp1 inner join emp2;
+2> go
+Msg 102, Level 15, State 1, Server ip-172-31-13-125, Line 1
+Incorrect syntax near ';'.
+1> select * from emp1 inner join emp2 on emp1.id=emp2.id;
+2> go
+id          Name       Age         id          place      pin        
+----------- ---------- ----------- ----------- ---------- -----------
+         10 Abi                 25          10 AP              342355
+         20 Bharath             23          20 AP                3255
+
+(2 rows affected)
+
+
+
+
+select * from emp1 full  join emp2 on emp1.id=emp2.id;
+2> go
+id          Name       Age         id          place      pin        
+----------- ---------- ----------- ----------- ---------- -----------
+         10 Abi                 25          10 AP              342355
+         20 Bharath             23          20 AP                3255
+         30 Charan              43        NULL NULL              NULL
+         40 Darshan             45        NULL NULL              NULL
+       NULL NULL              NULL          50 UP                8765
+       NULL NULL              NULL          60 MP                9342
+
+(6 rows affected)
+1> select * from emp1 left  join emp2 on emp1.id=emp2.id;
+2> go
+id          Name       Age         id          place      pin        
+----------- ---------- ----------- ----------- ---------- -----------
+         10 Abi                 25          10 AP              342355
+         20 Bharath             23          20 AP                3255
+         30 Charan              43        NULL NULL              NULL
+         40 Darshan             45        NULL NULL              NULL
+
+(4 rows affected)
+1> select * from emp1 right  join emp2 on emp1.id=emp2.id;
+2> go
+id          Name       Age         id          place      pin        
+----------- ---------- ----------- ----------- ---------- -----------
+         10 Abi                 25          10 AP              342355
+         20 Bharath             23          20 AP                3255
+       NULL NULL              NULL          50 UP                8765
+       NULL NULL              NULL          60 MP                9342
+
+(4 rows affected)
+1> 2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2A2B2B
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+select employee_id , first_name, department_id from employees where department_id in (select department_id from departments where department_name='IT');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_ID                               NOT NULL NUMBER(6)
+ FIRST_NAME                                         VARCHAR2(20)
+ LAST_NAME                                 NOT NULL VARCHAR2(25)
+ EMAIL                                     NOT NULL VARCHAR2(25)
+ PHONE_NUMBER                                       VARCHAR2(20)
+ HIRE_DATE                                 NOT NULL DATE
+ JOB_ID                                    NOT NULL VARCHAR2(10)
+ SALARY                                             NUMBER(8,2)
+ COMMISSION_PCT                                     NUMBER(2,2)
+ MANAGER_ID                                         NUMBER(6)
+ DEPARTMENT_ID                                      NUMBER(4)
+
+SQL> desc departments;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPARTMENT_ID                             NOT NULL NUMBER(4)
+ DEPARTMENT_NAME                           NOT NULL VARCHAR2(30)
+ MANAGER_ID                                         NUMBER(6)
+ LOCATION_ID                                        NUMBER(4)
+
+SQL> desc locations;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ LOCATION_ID                               NOT NULL NUMBER(4)
+ STREET_ADDRESS                                     VARCHAR2(40)
+ POSTAL_CODE                                        VARCHAR2(12)
+ CITY                                      NOT NULL VARCHAR2(30)
+ STATE_PROVINCE                                     VARCHAR2(25)
+ COUNTRY_ID                                         CHAR(2)
+SQL> desc countries;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COUNTRY_ID                                NOT NULL CHAR(2)
+ COUNTRY_NAME                                       VARCHAR2(40)
+ REGION_ID                                          NUMBER
+SQL> desc regions;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGION_ID                                 NOT NULL NUMBER
+ REGION_NAME                                        VARCHAR2(25)
+
+
+	find all the name who are working region asia 
+
+select FIRST_NAME from employees where DEPARTMENT_ID   in ( select DEPARTMENT_ID   from departments where  LOCATION_ID in (select  LOCATION_ID from   locations where COUNTRY_ID  in ( select  COUNTRY_ID  from  countries where   REGION_ID in ( select  REGION_ID   from regions where region_name ='Asia'))));
+	
+
+36+ 70 = 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2022-9 : jboos
+
+
+
+
+mars
+indigo
+oxyger
+keplar 
+neon 
+
+
+
+
+
+
+
+hibernate set up : 
+ +
+
+as much as possible complet : LMS 
+
++
+
+CRUD : 
+	Servler and JSP : project
+
+
+
+1	:Introduction to Java						: DONE
+2	:Data Handling and Functions				: DONE
+3	:Object Oriented Programming in Java			: DONE
+4	:Packages and Multi Threading				: DONE
+5	:Collections							: DONE
+6	:JDBC									: DONE
+7	:Servlets								: DONE
+8	:JSP 									: DONE
+9	:Hibernate								: Start
+10	:Serialization							: NOT DONE
+11	:JSON									: NOT DEMO
+12	:Java memory model						: DONE
+13	:Java 8 and Java 9 features					: DONE (deafults and staticss ) , multiple try catch block 
+14	:XML									: DONE
+15	:SOA									: NOT DONE
+16	:Web Services and Project					: DONE
+17	:Introduction to Struts Framework			:
+18	:Struts 1.2 MVC and Stateless Session Beans		:
+19	:SVN									:
+20	:Maven								:
+21	:Getting Started with MySQL and Installing MySQL	: DONE
+22	:Designing Your Database & Understand Data Types : DONE
+23	:Creating Databases and Tables				: DONE
+24	:Eclips								: DONE 
+25	:Querying and Modifying Table Data			: DONE
+26	:Joining Tables and Functions				: DONE
+27	:MySQL Architecture and Administration Basics	:
+28	:Configuring & Monitoring MySQL Server			: DONE
+29	:User Management							: DEMO 
+30	:Security								: Demo
+31 	:Backup Tools & Technique					: RMAN (recovery manager)
+
+
+
+
+
+
+
+
+4 files : 
+
+
+		1 ) POJO // bean class / encupulated / 
+					class which have 
+						
+
+						private var
+						empty contructor 
+						constructor with field 
+						setter and getter methods
+
+		2 ) Configuration (hibernate.cfg.xml)
+
+				which database ?  : mysql 
+				driver nAME com.mysql.jdbc.Driver
+				user name 
+				pass database 
+				databases ? 
+
+
+		3 ) 
+				mysql
+				hibernate 
+
+
+				add file ? 
+						maven reposotory 
+
+
+						pom.xml 
+
+
+
+		4 ) main file 
+					4 steps to insert the repocrd 
+
+
+
+
+
+
+
+pojo 
+=================================
+package abc;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="MyEmployees")
+public class Employee {
+	@Id
+	private int uid;
+	private String name;
+	private int age;
+	private int salary;
+	private String desig;
+	
+	public Employee()
+	{
+	}
+	public Employee(int uid, String name, int age, int salary, String desig) {
+		super();
+		this.uid = uid;
+		this.name = name;
+		this.age = age;
+		this.salary = salary;
+		this.desig = desig;
+	}
+	public int getUid() {
+		return uid;
+	}
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public String getDesig() {
+		return desig;
+	}
+
+	public void setDesig(String desig) {
+		this.desig = desig;
+	}
+	
+	
+
+	
+}
+
+=================================================================
+configuration.cfg.xml
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="demo">
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tcsb2</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="abc.Employee"/>
+    </session-factory>
+</hibernate-configuration>
+
+
+
+==========================App.java ================================
+package abc;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class App {
+
+	public static void main(String[] args) {
+		Configuration cfg=new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		
+		SessionFactory factory=cfg.buildSessionFactory();
+		
+		Session session=factory.openSession();
+		Transaction tx= session.beginTransaction();
+		
+		
+		Employee e = new Employee();
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter ID :");int uid=sc.nextInt();
+		System.out.print("Enter NAME :");String uname=sc.next();
+		System.out.print("Enter AGE  :");int uage=sc.nextInt();
+		System.out.print("Enter SAALRY :");int usalary=sc.nextInt();
+		System.out.print("Enter DESIG:");String udesig=sc.next();
+		e.setUid(uid);
+		e.setName(uname);
+		e.setAge(uage);
+		e.setSalary(usalary);
+		e.setDesig(udesig);
+		
+		session.save(e);
+		tx.commit();
+		
+		
+		System.out.println("Data inserted successfully...!");
+		
+		
+	}
+
+}
+
+=========================================================================
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com</groupId>
+  <artifactId>HibernetDemo1</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+	<dependency>
+    	<groupId>org.hibernate</groupId>
+    	<artifactId>hibernate-core</artifactId>
+    	<version>5.4.10.Final</version>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.25</version>
+</dependency>
+
+  
+  
+  
+  </dependencies>
+  
+</project>
+
+
+===================================================================================================
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+java 
+
+
+	JDBC: dev / insert / delete //update 
+	Hibernate : no need of createing a table : save , delete , update , get.load
+
+
+DB
+
+
+
+
+
+//create the project (5: 07  minuts of time )
+
+//cloud set mysql not there 
+//simple create project structure and add all this file 
+
+//EMployee
+//id, name, Place , Gender, year of birth =2021
+	
+	
+
+
+
+
+
+
+1	:Introduction to Java						: DONE
+2	:Data Handling and Functions				: DONE
+3	:Object Oriented Programming in Java			: DONE
+4	:Packages and Multi Threading				: DONE
+5	:Collections							: DONE
+6	:JDBC									: DONE
+7	:Servlets								: DONE
+8	:JSP 									: DONE
+9	:Hibernate								: DONE
+10	:Serialization							: NOT DONE
+11	:JSON									: NOT DEMO
+12	:Java memory model						: DONE
+13	:Java 8 and Java 9 features					: DONE 
+14	:XML									: DONE
+15	:SOA									: NOT DONE
+16	:Web Services and Project					: DONE
+17	:Introduction to Struts Framework			:
+18	:Struts 1.2 MVC and Stateless Session Beans		:
+19	:SVN									:
+20	:Maven								:
+21	:Getting Started with MySQL and Installing MySQL	: DONE
+22	:Designing Your Database & Understand Data Types : DONE
+23	:Creating Databases and Tables				: DONE
+24	:Eclips								: DONE 
+25	:Querying and Modifying Table Data			: DONE
+26	:Joining Tables and Functions				: DONE
+27	:MySQL Architecture and Administration Basics	:
+28	:Configuring & Monitoring MySQL Server			: DONE
+29	:User Management							: DEMO 
+30	:Security								: Demo
+31 	:Backup Tools & Technique					: RMAN (recovery manager)
+
+
+
+
+C R U D : 
+
+jdbc : 
+Servlet 
+Jsp 
+Hibernate 
+
+web applcaition : 
+
+
+
+
+						jdbc ----------------------------------Hibernate 
+
+
+
+
+		1)dev has to create a db 							hibentere haveing to table them self 
+													@Entity 
+													@Id
+													@Table 
+													@Colume()
+													@Transient
+													@Generate() 
+													@oneTOOne
+													@OneToMany
+													@manyToMany
+													@ManyToOne
+
+
+
+		jdbc ; java project 								maven : 
+				
+					we have to add JAR 						automatiacly 
+															maven repo :
+
+
+													pom.xml
+													it is used add the dependency ....!
+
+
+
+
+
+		we have to configutre all the things 					plugin : 
+			linke 
+				driver name 								hibernate.cfg.xml
+				url 
+				user name 
+				pass 
+				dilect 
+	
+													session.save()
+		insert query 	
+		udpate emp set nam								session.delete()
+		delete from emp where id ? 							session.update();
+
+													load / get ()
+		
+				
+
+
+
+
+
+
+		Day 1: 
+
+					basics 
+					oops 
+										extedsn , implemets , final , this super 
+						inheritance 
+						poly
+						abstraction 
+						encup 
+
+						class & obj 
+	
+					Multithreading 
+					Exception handling 
+					String , buffer , 
+					memory manager 
+					Access modifioer 
+						public private proteced , default 
+					non accessn momdinfier 
+						final , static , abstract 
+
+					COllections 
+					LIST :: dup + ordder 
+					SET  : no dup + no order 
+					MAP 	
+
+
+					JDBC : 
+					Servlet : 
+					JSp ;
+						tags : 
+						3 tags : 
+							declirication 
+							scriplet 
+							eXPRESSION 
+							
+
+
+				inbuild objes :
+					out 		
+					request 
+					responce 
+					congig 
+					context 
+					session
+					
+
+
+				Hibernate :
+					POJO / bean / encupulates  
+				
+					how add the plugin : 
+						Hibernate , cg,xml '
+
+
+
+				ORM : 
+
+
+
+
+
+
+			dev : 
+					applcaition :
+								
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

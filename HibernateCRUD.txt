@@ -1,0 +1,304 @@
+package com;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class GetRecord {
+
+	public static void main(String[] args) {
+		
+		Configuration cfg= new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		
+		
+		SessionFactory factory=cfg.buildSessionFactory();
+		
+		Session session= factory.openSession();
+		
+		Transaction tx= session.beginTransaction();
+	
+		List emp =session.createQuery("from Employee").list();
+		
+		Iterator i =emp.iterator();
+		while(i.hasNext())
+		{
+			Employee e= (Employee)i.next();
+			System.out.println("ID: "+e.getId());
+			System.out.println("NAME :"+e.getName());
+			System.out.println("AGE : "+ e.getAge());
+			System.out.println("Salary : "+ e.getSalary());
+			System.out.println("Desig : "+e.getDesig());
+			
+			System.out.println("===============");
+			
+		}
+		
+	}
+
+}
+===========================================================
+
+package com;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class InsertDemo {
+
+	public static void main(String[] args) {		
+		Configuration cfg= new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		SessionFactory factory = cfg.buildSessionFactory();
+		Session session = factory.openSession();
+		Transaction tx = session.beginTransaction();
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter how many emp you want to add ");
+		int no=sc.nextInt();
+		for(int i=0;i<no;i++)
+		{
+			System.out.println("Enter ID :");
+			int id = sc.nextInt();
+			
+			System.out.println("Enter name :");
+			String name= sc.next();
+			
+			System.out.println("Enter Age :");
+			int age= sc.nextInt();
+			
+			System.out.println("ENter Salary :");
+			int salary= sc.nextInt();
+			
+			System.out.println("Enter Desig ");
+			String desig= sc.next();
+			
+			Employee e = new Employee();
+			e.setId(id);
+			e.setName(name);
+			e.setAge(age);
+			e.setSalary(salary);
+			e.setDesig(desig);
+			
+			session.save(e);
+			
+			
+		}
+		tx.commit();
+		System.out.println("Data Inserted....!");
+	}
+}
+
+
+
+====================================
+
+package com;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class DeleteRecord {
+
+	public static void main(String[] args) {
+		
+		Configuration cfg= new Configuration();
+		cfg.configure("hibernate.cfg.xml");
+		
+		SessionFactory factory= cfg.buildSessionFactory();
+		
+		Session session= factory.openSession();
+		
+		Transaction tx = session.beginTransaction();
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter id to Delete : ");
+		int id = sc.nextInt();
+		
+		
+		Employee e = new Employee();
+		
+		e.setId(id);
+		
+		
+		session.delete(e);
+		tx.commit();
+		
+		System.out.println("Data Deleted ...!");
+		
+		
+	}
+
+}
+============================================
+
+package com;
+
+import java.util.Scanner;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class UpdateRecord {
+
+	public static void main(String[] args) {
+	
+			Configuration cfg= new Configuration();
+			cfg.configure("hibernate.cfg.xml");
+			
+			SessionFactory factory= cfg.buildSessionFactory();
+			
+			Session session= factory.openSession();
+			
+			Transaction tx= session.beginTransaction();
+			
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter ID : ");
+			int id=sc.nextInt();
+			
+			System.out.println("Enter Salary : ");
+			int sal= sc.nextInt();
+			
+			
+			Employee e = new Employee();
+			e.setId(id);
+			e.setSalary(sal);
+			
+			
+			session.saveOrUpdate(e);
+			tx.commit();
+			
+			System.out.println("Dsta Updated....!");
+			
+			
+			
+			
+	}
+
+}
+
+
+
+==========================================================
+POJO class 
+package com;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Employee {
+	
+	@Id
+	private int id;
+	private String name;
+	private int age;
+	private int salary;
+	private String desig;
+	public Employee()
+	{
+		
+	}
+	public Employee(int id, String name, int age, int salary, String desig) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.salary = salary;
+		this.desig = desig;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public int getSalary() {
+		return salary;
+	}
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+	public String getDesig() {
+		return desig;
+	}
+	public void setDesig(String desig) {
+		this.desig = desig;
+	}
+	
+}
+
+===============================================
+hibernate.cfg.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="dome">
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tcsb2</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+    	<property name="hbm2ddl.auto">update</property>
+    	<property name="show_sql">true</property>
+    	<mapping class="com.Employee"/>
+    
+    </session-factory>
+</hibernate-configuration>
+
+
+================================
+POM.xml
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>demo</groupId>
+  <artifactId>HibernateCRUD</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.4.10.Final</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.6</version>
+</dependency>
+
+  </dependencies>
+</project>
+
